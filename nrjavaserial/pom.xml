@@ -9,11 +9,11 @@
     <version>7</version>
   </parent>
 
-  <groupId>com.neuronrobotics</groupId>
+  <groupId>org.bidib.com.neuronrobotics</groupId>
   <artifactId>nrjavaserial</artifactId>
   <packaging>jar</packaging>
   <name>nrjavaserial</name>
-  <version>3.9.2</version>
+  <version>3.9.3-SNAPSHOT</version>
   <description>Fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries.</description>
   <url>http://code.google.com/p/nrjavaserial/</url>
   <licenses>
@@ -39,6 +39,20 @@
     </developer>
   </developers>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
+	
   <build>
     <resources>
       <resource>
