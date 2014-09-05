@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.bidib.com.neuronrobotics</groupId>
@@ -15,7 +15,7 @@
   <name>nrjavaserial</name>
   <version>3.9.3-SNAPSHOT</version>
   <description>Fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries.</description>
-  <url>http://code.google.com/p/nrjavaserial/</url>
+  <url>https://github.com/NeuronRobotics/nrjavaserial.git</url>
   <licenses>
     <license>
       <name>GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.</name>
@@ -24,8 +24,10 @@
     </license>
   </licenses>
   <scm>
-    <url>http://nrjavaserial.googlecode.com/svn/trunk/</url>
-    <connection>scm:svn:http://nrjavaserial.googlecode.com/svn/trunk/</connection>
+    <url>https://github.com/akuhtz/nrjavaserial.git</url>
+    <connection>scm:git:https://github.com/akuhtz/nrjavaserial.git</connection>
+    <developerConnection>scm:git:https://github.com/akuhtz/nrjavaserial.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
@@ -63,6 +65,23 @@
       </resource>
     </resources>
 
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <preparationGoals>clean install</preparationGoals>
+                    <goals>deploy</goals>
+                    <arguments>-Prelease,deploy</arguments>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+    
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -126,6 +145,42 @@
       	</configuration>
       </plugin>
     </plugins>
-  </build>   
+  </build>
+  
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- We want to deploy the artifact to a staging location for perusal -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.7</version>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <!--altDeploymentRepository>${deploy.altRepository}</altDeploymentRepository-->
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
+                    </plugin>
+                    <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
  
 </project>
