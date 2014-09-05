@@ -65,10 +65,10 @@ Download mingw64: http://tdm-gcc.tdragon.net/
 
 #Release Build with Maven
 
-* Don't use the latest version of maven-release-plugin because MRELEASE-875 causes problems.
+* Don't use the latest version of maven-release-plugin because MRELEASE-875 causes problems. <br>
   I ended up using version 2.3.2 and this worked for me under Windows 7.
 
-* Add the following to git config:
+* Add the following to git config: <br>
   git config status.displayCommentPrefix true
  
 * Add git binaries to your PATH.
@@ -77,12 +77,12 @@ Download mingw64: http://tdm-gcc.tdragon.net/
 
 * Do not use the <gpg.useagent> property. Add the password for the maven-gpg-plugin manually.
 
-* Steps:
-  mvn release:prepare -DdryRun
-  mvn deploy   ## make sure deployment works 
+* Steps:<br>
+  mvn release:prepare -DdryRun <br>
+  mvn deploy   ## make sure deployment works <br>
   
-  mvn release:clean
-  mvn release:prepare -Dusername=<your_github_username> -Dpassword=<your_password>
-  mvn release:release -Dusername=<your_github_username> -Dpassword=<your_password>
+  mvn release:clean<br>
+  mvn release:prepare -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
+  mvn release:release -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
 
   
