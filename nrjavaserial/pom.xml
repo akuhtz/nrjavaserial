@@ -1,118 +1,133 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>9</version>
-  </parent>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
 
-  <groupId>org.bidib.com.neuronrobotics</groupId>
-  <artifactId>nrjavaserial</artifactId>
-  <packaging>jar</packaging>
-  <name>nrjavaserial</name>
-  <version>3.9.3-SNAPSHOT</version>
-  <description>Fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries.</description>
-  <url>https://github.com/NeuronRobotics/nrjavaserial.git</url>
-  <licenses>
-    <license>
-      <name>GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.</name>
-      <url>http://www.fsf.org/licensing/licenses/lgpl.html</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <url>https://github.com/akuhtz/nrjavaserial.git</url>
-    <connection>scm:git:https://github.com/akuhtz/nrjavaserial.git</connection>
-    <developerConnection>scm:git:https://github.com/akuhtz/nrjavaserial.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
+    <groupId>org.bidib.com.neuronrobotics</groupId>
+    <artifactId>nrjavaserial</artifactId>
+    <packaging>jar</packaging>
+    <name>nrjavaserial</name>
+    <version>3.9.3-SNAPSHOT</version>
+    <description>Fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries.</description>
+    <url>https://github.com/NeuronRobotics/nrjavaserial.git</url>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.</name>
+            <url>http://www.fsf.org/licensing/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/akuhtz/nrjavaserial.git</url>
+        <connection>scm:git:https://github.com/akuhtz/nrjavaserial.git</connection>
+        <developerConnection>scm:git:https://github.com/akuhtz/nrjavaserial.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
-  <properties>
-    <developer.email>kharrington@neuronrobotics.com</developer.email>
-  </properties>
+    <properties>
+        <developer.email>kharrington@neuronrobotics.com</developer.email>
+        <gpg.useagent>true</gpg.useagent>
+    </properties>
 
-  <developers>
-    <developer>
-      <name>Kevin Harrington</name>
-      <email>${developer.email}</email>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <name>Kevin Harrington</name>
+            <email>${developer.email}</email>
+        </developer>
+    </developers>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.2</version>
             <scope>test</scope>
         </dependency>
-	</dependencies>
-	
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/c/resources/</directory>
-        <excludes>
-        	<exclude>**/.svn/</exclude>
-        </excludes>
-      </resource>
-    </resources>
+    </dependencies>
 
-    <pluginManagement>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/c/resources/</directory>
+                <excludes>
+                    <exclude>**/.svn/</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <preparationGoals>clean install</preparationGoals>
+                        <goals>deploy</goals>
+                        <arguments>-Prelease,deploy</arguments>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.9.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.4.2</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
                 <configuration>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <preparationGoals>clean install</preparationGoals>
-                    <goals>deploy</goals>
-                    <arguments>-Prelease,deploy</arguments>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <source>1.5</source>
+                    <target>1.5</target>
                 </configuration>
             </plugin>
-        </plugins>
-    </pluginManagement>
-    
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.0</version>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
 
-      <plugin>
-      	<groupId>org.apache.felix</groupId>
-      	<artifactId>maven-bundle-plugin</artifactId>
-      	<version>2.3.7</version>
-      	<extensions>true</extensions>
-      	<configuration>
-      		<archive>
-      			<addMavenDescriptor>true</addMavenDescriptor>
-      		</archive>
-      		<supportedProjectTypes>
-      			<supportedProjectType>jar</supportedProjectType>
-      		</supportedProjectTypes>
-      		<instructions>
-      			<Bundle-ContactAddress>${developer.email}</Bundle-ContactAddress>
-      			<Bundle-Description>${project.description}</Bundle-Description>
-      			<Bundle-DocURL>${project.url}</Bundle-DocURL>
-      			<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
-      			<Bundle-Version>${project.version}</Bundle-Version>
-      			<Export-Package>*</Export-Package>
-      			<Bundle-NativeCode>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                    </archive>
+                    <supportedProjectTypes>
+                        <supportedProjectType>jar</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Bundle-ContactAddress>${developer.email}</Bundle-ContactAddress>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Bundle-DocURL>${project.url}</Bundle-DocURL>
+                        <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Export-Package>*</Export-Package>
+                        <Bundle-NativeCode>
       				native/windows/x86_32/libNRJavaSerial.dll;osname=Win32;processor=x86,
       				native/windows/x86_64/libNRJavaSerial.dll;osname=Win64;processor=x86_64,
       				native/linux/x86_32/libNRJavaSerial.so;osname=linux;processor=x86,
@@ -120,33 +135,33 @@
       				native/linux/x86_64/libNRJavaSerial.so;osname=linux;processor=x86_64,
       				native/linux/x86_64/libNRJavaSerial_legacy.so;osname=linux;processor=x86_64,
       				native/osx/libNRJavaSerial.jnilib;osname="mac os x";processor=x86;processor=x86_64
-      			</Bundle-NativeCode>
-      		</instructions>
-      	</configuration>
-      	<executions>
-      		<execution>
-      		  <id>bundle</id>
-      		  <goals>
-                <goal>manifest</goal>
-              </goals>
-              <phase>prepare-package</phase>
-            </execution>
-      	</executions>
-      </plugin>
+                        </Bundle-NativeCode>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
+            </plugin>
 
-      <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-      	<artifactId>maven-jar-plugin</artifactId>
-      	<version>2.3.2</version>
-      	<configuration>
-      		<archive>
-      			<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-      		</archive>
-      	</configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>release</id>
@@ -167,7 +182,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -181,6 +195,45 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>deploy</id>
+            <properties>
+                <createSourcesJar>true</createSourcesJar>
+            </properties>
+            <build>
+                <defaultGoal>deploy</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <source>1.5</source>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
- 
+
 </project>
