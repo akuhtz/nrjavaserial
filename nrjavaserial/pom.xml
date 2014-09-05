@@ -12,7 +12,7 @@
     <artifactId>nrjavaserial</artifactId>
     <packaging>jar</packaging>
     <name>nrjavaserial</name>
-    <version>3.9.3.1</version>
+    <version>3.9.3-SNAPSHOT</version>
     <description>Fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries.</description>
     <url>https://github.com/NeuronRobotics/nrjavaserial.git</url>
     <licenses>
@@ -26,7 +26,7 @@
         <url>https://github.com/akuhtz/nrjavaserial.git</url>
         <connection>scm:git:https://github.com/akuhtz/nrjavaserial.git</connection>
         <developerConnection>scm:git:https://github.com/akuhtz/nrjavaserial.git</developerConnection>
-        <tag>nrjavaserial-3.9.3.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
