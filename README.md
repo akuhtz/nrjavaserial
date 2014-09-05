@@ -79,7 +79,7 @@ Download mingw64: http://tdm-gcc.tdragon.net/
 
 * Steps:<br>
   mvn release:prepare -DdryRun <br>
-  mvn deploy   ## make sure deployment works <br>
+  mvn deploy &nbsp;&nbsp;&nbsp;   <i> just to make sure deployment works</i> <br>
   
   mvn release:clean<br>
   mvn release:prepare -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
