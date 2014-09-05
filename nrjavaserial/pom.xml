@@ -31,7 +31,7 @@
 
     <properties>
         <developer.email>kharrington@neuronrobotics.com</developer.email>
-        <gpg.useagent>true</gpg.useagent>
+        <!--gpg.useagent>true</gpg.useagent-->
     </properties>
 
     <developers>
