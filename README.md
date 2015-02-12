@@ -83,6 +83,6 @@ Download mingw64: http://tdm-gcc.tdragon.net/
   
   mvn release:clean<br>
   mvn release:prepare -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
-  mvn release:release -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
+  mvn release:perform -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
 
   
