@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TooManyListenersException;
 
 public class NRSerialPort {
 	private RXTXPort serial;
@@ -163,4 +164,13 @@ public class NRSerialPort {
 	public void notifyOnDataAvailable(boolean b) {
 		serial.notifyOnDataAvailable(b);
 	}
+	public void addEventListener(SerialPortEventListener lsnr)
+                        throws TooManyListenersException {
+    serial.addEventListener(lsnr);
+  }
+
+  public void removeEventListener() {
+    serial.removeEventListener();
+  }
+
 }

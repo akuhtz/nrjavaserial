@@ -63,6 +63,22 @@ $make osx #This will attempt to build the OSX binaries.
 
 Download mingw64: http://tdm-gcc.tdragon.net/
 
+#This is how to use NRSerialPort objects
+
+NRSerialPort serial = new NRSerialPort("COM3", 115200);                          
+
+serial.connect();
+
+DataInputStream ins = new DataInputStream(serial.getInputStream());
+
+DataOutputStream outs = new DataOutputStream(serial.getOutputStream());
+
+byte b = ins.read();
+
+outs.write(b);
+
+serial.disconnect(); 
+
 #Release Build with Maven
 
 * Don't use the latest version of maven-release-plugin because MRELEASE-875 causes problems. <br>
