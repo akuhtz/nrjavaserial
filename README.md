@@ -1,104 +1,124 @@
-#About
+# About
 
-This is a fork of the RXTX library with a focus on ease of use and the ability to embed in other libraries. 
+This is a fork of the [RXTX library](http://rxtx.qbang.org/) with a focus on
+ease of use and embeddability in other libraries.
 
-##Some of the features we have added##
+## Some of the features we have added
 
-A simplified serial port object called NRSerialPort, see the Wiki for an example...
+* A simplified serial port object called `NRSerialPort`. See below for an
+  example.
 
-Self deployment of native libraries ( all native code is stored inside the jar and deployed at runtime). No more manual install of native code.
+* Self-deployment of native libraries (all native code is stored inside the JAR
+  and deployed at runtime). No more manual installation of native code.
 
-Arm Cortex support (Gumstix)
+* Arm Cortex support (Gumstix).
 
-Android Support (requires a rooted phone to access the serial hardware)
+* Android Support (requires a rooted phone to access the serial hardware).
 
-Single makefile compile (simplifies the compilation of project binaries)
+* Single Makefile compile which simplifies the compilation of project binaries.
 
-Ant build script for jar creation
+* Gradle support for JAR creation.
 
-Removal of partially implemented code to streamline the lib for just serial port access
+* Removal of partially-implemented RXTX code to streamline the library for just
+  serial port access.
 
-Full Eclipse integration, for testing application code against sources.
+* Full Eclipse integration for testing application code against sources.
 
-##And a bunch of bug fixes##
+* [RFC 2217](http://tools.ietf.org/html/rfc2217) support provided by
+  incorporating the [jvser library](http://github.com/archiecobbs/jvser).
 
-Fixed the memory access error that causes OSX to crash the JVM when serial.close() is called
+## And a bunch of bug fixes
 
-Fixed the windows serial port zombie bind that prevents re-accessing serial ports when exiting on an exception
+* Fixed the memory access error that causes OS X to crash the JVM when
+  `serial.close()` is called.
 
-Fixed erroneous printouts of native library mis-match
+* Fixed the Windows serial port zombie bind that prevents re-accessing serial
+  ports when exiting on an exception.
 
-# Building Jar
+* Fixed erroneous printouts of native library mis-match.
 
-Checkout the repository.
+# Dependency Management
 
-$cd nrjavaserial/nrjavaserial
+## Maven
 
-$ant
+    <dependency>
+        <groupId>com.neuronrobotics</groupId>
+        <artifactId>nrjavaserial</artifactId>
+        <version>3.11.0</version>
+    </dependency>
 
-The ready to deploy .jar file will be found in the target/ directory. 
+## Gradle
 
-#Building Native Code
+    dependencies {
+        compile "com.neuronrobotics:nrjavaserial:3.11.0"
+    }
 
-Native code is built using the Makefile found in nrjavaserial/nrjavaserial . After the native code is built, the .jar is rebuilt. 
+# Building the JAR
 
-$cd nrjavaserial/nrjavaserial/
+1. Checkout the repository.
 
-$make windows #This will build the windows binaries. This will attempt to build the 64 and 32 bit binaries. 
+        $ git clone https://github.com/NeuronRobotics/nrjavaserial.git
 
-$make wine #This will build the windows binaries on Linux
+2. Build with Gradle.
 
-$make linux #This will attempt to build both the 32 and 64 bit Linux binaries
+        $ cd nrjavaserial
+        $ gradle build
 
-$make linux32 or $make linux64 #This will attempt to build 32 or 64 bit Linux binaries
+The resulting JAR will be found in the `build/libs/` directory.
 
-$make arm #This will attempt to build the binaries for all the supported ARM flavors
+# Building Native Code
 
-$make ppc #This will attempt to build the PPC binaries. 
+Native code is built using the Makefile found in the root of the repository.
+After the native code is built, the JAR is rebuilt.
 
-$make osx #This will attempt to build the OSX binaries. 
+    # Build both the 32- and 64-bit Windows binaries.
+    $ make windows
+
+    # Build the windows binaries on Linux via Wine.
+    $ make wine
+
+    # Build both the 32- and 64-bit Linux x86 binaries.
+    $make linux
+
+    # Build 32- or 64-bit Linux binaries, respectively.
+    $ make linux32
+    $ make linux64
+
+    # Build the binaries for all the supported ARM flavors.
+    $ make arm
+
+    # Build the OSX binaries.
+    $ make osx
+
+    # Build the PPC binaries.
+    $ make ppc
 
 
-#Windows Builds
+## Building on Windows
 
-Download mingw64: http://tdm-gcc.tdragon.net/
+You'll need some installation of GCC. We recommend the
+[TDM-GCC](http://tdm-gcc.tdragon.net/) distribution of mingw64-w64.
 
-#This is how to use NRSerialPort objects
+## Building on OS X
 
-NRSerialPort serial = new NRSerialPort("COM3", 115200);                          
+We're pretty big on maintaining backwards compatibility as far as reasonable.
+Our OS X natives target OS X 10.5, so to build them, you'll need an appropriate
+SDK installed. [This StackOverflow answer](http://stackoverflow.com/a/6293605)
+provides pointers for getting the appropriate SDK installed.
 
-serial.connect();
+# How to use NRSerialPort objects
+    for(String s:NRSerialPort.getAvailableSerialPorts()){
+			System.out.println("Availible port: "+s);
+		}
+    String port = "COM3";
+    int baudRate = 115200;
+    NRSerialPort serial = new NRSerialPort(port, baudRate);
+    serial.connect();
 
-DataInputStream ins = new DataInputStream(serial.getInputStream());
+    DataInputStream ins = new DataInputStream(serial.getInputStream());
+    DataOutputStream outs = new DataOutputStream(serial.getOutputStream());
 
-DataOutputStream outs = new DataOutputStream(serial.getOutputStream());
+    byte b = ins.read();
+    outs.write(b);
 
-byte b = ins.read();
-
-outs.write(b);
-
-serial.disconnect(); 
-
-#Release Build with Maven
-
-* Don't use the latest version of maven-release-plugin because MRELEASE-875 causes problems. <br>
-  I ended up using version 2.3.2 and this worked for me under Windows 7.
-
-* Add the following to git config: <br>
-  git config status.displayCommentPrefix true
- 
-* Add git binaries to your PATH.
-
-* Use maven-3.0.5
-
-* Do not use the <gpg.useagent> property. Add the password for the maven-gpg-plugin manually.
-
-* Steps:<br>
-  mvn release:prepare -DdryRun <br>
-  mvn deploy &nbsp;&nbsp;&nbsp;   <i> just to make sure deployment works</i> <br>
-  
-  mvn release:clean<br>
-  mvn release:prepare -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
-  mvn release:perform -Dusername=&lt;your_github_username&gt; -Dpassword=&lt;your_password&gt;<br>
-
-  
+    serial.disconnect();
