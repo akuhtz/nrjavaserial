@@ -1,5 +1,11 @@
 # About
 
+[![Join the chat at https://gitter.im/NeuronRobotics/nrjavaserial](https://badges.gitter.im/NeuronRobotics/nrjavaserial.svg)](https://gitter.im/NeuronRobotics/nrjavaserial?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.neuronrobotics/nrjavaserial/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.neuronrobotics/nrjavaserial)
+
+[![Build Status](https://travis-ci.org/NeuronRobotics/nrjavaserial.svg?branch=master)](https://travis-ci.org/NeuronRobotics/nrjavaserial)
+
 This is a fork of the [RXTX library](http://rxtx.qbang.org/) with a focus on
 ease of use and embeddability in other libraries.
 
@@ -41,17 +47,11 @@ ease of use and embeddability in other libraries.
 
 ## Maven
 
-    <dependency>
-        <groupId>com.neuronrobotics</groupId>
-        <artifactId>nrjavaserial</artifactId>
-        <version>3.11.0</version>
-    </dependency>
-
-## Gradle
-
-    dependencies {
-        compile "com.neuronrobotics:nrjavaserial:3.11.0"
-    }
+	<dependency>
+	  <groupId>com.neuronrobotics</groupId>
+	  <artifactId>nrjavaserial</artifactId>
+	  <version>3.12.1</version>
+	</dependency>
 
 # Building the JAR
 
